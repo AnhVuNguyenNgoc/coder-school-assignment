@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Guess Number</title>
+    <style type="text/css">
+        #numberGuess {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span id="message">
+		</span>
+    </div>
+    <input type="number" id="number">
+    <button id="btnGuess">Guess</button>
+    <button id="btnRestart" style="display: none">Restart</button>
+    <script type="text/javascript">
+        function Game() {
+            let count = 0;
+            let numberGuess = 0;
+
+            this.constructer = function() {
+                numberGuess = Math.floor(Math.random() * 100 + 1);
+                console.log(numberGuess);
+
+                //init event button
+                let button = document.getElementById('btnGuess');
+                button.addEventListener('click', this.initClickEvent);
+            };
+
+            this.initClickEvent = function() {
+
+                console.log("initClickEvent");
+                console.log("count", count);
+                console.log("numberGuess", numberGuess);
+
+                let text = document.getElementById('message');
+                if (count > 10) {
+                    text.innerHTML = "Bạn đã đoán sai quá 10 lần, số chính xác là " + numberGuess;
+                    mode = "over";
+                    text.style.backgroundColor = "red";
+                } else {
+                    count++;
+                    let num = document.getElementById('number').value;
+                    if (num == numberGuess) {
+                        text.innerHTML = "Chúc mừng bạn đã đoán đúng số: " + numberGuess;
+                        text.style.backgroundColor = "pink";
+                    } else if (num > numberGuess) {
+                        text.innerHTML = "Số của bạn lớn hơn số cần đoán!";
+                        text.style.backgroundColor = "blue";
+                    } else {
+                        text.innerHTML = "Số của bạn nhỏ hơn số cần đoán!";
+                        let color = this.colorText;
+                        text.style.backgroundColor = "yellow";;
+                    }
+                }
+            };
+        }
+
+        let game = new Game();
+        game.constructer();
+    </script>
+</body>
+
+</html>
